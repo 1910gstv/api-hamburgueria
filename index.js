@@ -5,12 +5,14 @@ const connection = require("./database/database");
 const bodyParser = require("body-parser");
 
 const CategoriaController = require('./routes/CategoriasRoutes')
+const EnderecoController = require('./routes/EnderecosRoutes')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
 app.use('/', CategoriaController);
+app.use('/', EnderecoController);
 
 app.use(
   session({

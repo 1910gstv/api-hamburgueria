@@ -31,7 +31,7 @@ async function createCategory(req,res){
         const newCategoryCreated = await Categoria.create(newCategory);
         return res.status(200).json(newCategoryCreated)
     } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json("Internal Server Error");
     }
 }
 
