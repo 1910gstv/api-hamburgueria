@@ -10,10 +10,10 @@ const PagamentoController = require('./routes/PagamentosRoutes')
 const PedidoController = require('./routes/PedidosRoutes')
 const PedidoProdutoController = require('./routes/PedidosProdutosRoutes')
 const ProdutoController = require('./routes/ProdutosRoutes')
+const UsuarioController = require('./routes/UsuarioRoutes')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 
 app.use('/', CategoriaController);
 app.use('/', EnderecoController);
@@ -21,6 +21,7 @@ app.use('/', PagamentoController);
 app.use('/', PedidoController);
 app.use('/', PedidoProdutoController);
 app.use('/', ProdutoController);
+app.use('/', UsuarioController);
 
 app.use(
   session({
