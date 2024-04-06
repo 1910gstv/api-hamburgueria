@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 const CategoriaController = require('./routes/CategoriasRoutes')
 const EnderecoController = require('./routes/EnderecosRoutes')
+const PagamentoController = require('./routes/PagamentosRoutes')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 
 app.use('/', CategoriaController);
 app.use('/', EnderecoController);
+app.use('/', PagamentoController);
 
 app.use(
   session({

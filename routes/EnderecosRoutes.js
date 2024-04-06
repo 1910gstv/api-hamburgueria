@@ -12,10 +12,10 @@ const {
 
 const router = Router();
 
-router.get("/allAdresses", getAllAdresses);
+router.get("/getAllAdresses", getAllAdresses);
 router.get("/address/:id", getAddressById);
-router.post("/address", createAddress);
-router.put("/address/:id", updateAddress);
-router.delete("/address/:id", deleteAddress);
+router.post("/createAddress", createAddress);
+router.put("/updateAddress/:id", updateAddress);
+router.delete("/deleteAddress/:id", deleteAddress);
 
 module.exports = router;

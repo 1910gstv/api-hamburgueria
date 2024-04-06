@@ -12,10 +12,10 @@ const {
 
 const router = Router();
 
-router.get("/allCategories", getAllCategories);
-router.get("/categories/:id", getCategoryPerId);
-router.post("/categories", createCategory);
-router.put("/categories/:id", updateCategory);
-router.delete("/categories/:id", deleteCategory);
+router.get("/getAllCategories", getAllCategories);
+router.get("/getCategory/:id", getCategoryPerId);
+router.post("/createCategory", createCategory);
+router.put("/updateCategory/:id", updateCategory);
+router.delete("/deleteCategory/:id", deleteCategory);
 
 module.exports = router;
