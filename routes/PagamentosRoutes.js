@@ -14,6 +14,6 @@ const router = Router();
 router.get("/getPayments", getPayments)
 router.post("/createPayment", createPayment)
 router.put("/updatePayment/:id", updatePayment)
-router.deçete("/deletePayment/:id", deletePayment)
+router.delete("/deletePayment/:id", deletePayment)
 
 module.exports = router;
