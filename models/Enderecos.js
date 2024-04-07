@@ -6,6 +6,7 @@ const Endereco = connection.define("enderecos", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  //Acrescentar coluna numero
   bairro: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -23,5 +24,9 @@ const Endereco = connection.define("enderecos", {
     allowNull: false
   }
 });
+
+Endereco.associate = (models) => {
+  Endereco.belongsTo(models.Usuario, {foreignKey: "endereco_id"})
+}
 
 module.exports = Endereco;

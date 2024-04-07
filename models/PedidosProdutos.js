@@ -12,4 +12,9 @@ const PedidoProduto = connection.define("pedidosprodutos", {
     }
 })
 
+PedidoProduto.associate = (models) => {
+    PedidoProduto.hasOne(models.Pedido, {foreignKey: "PedidoId"})
+    PedidoProduto.hasOne(models.Produto, {foreignKey: "ProdutoId"})
+}
+
 module.exports = PedidoProduto

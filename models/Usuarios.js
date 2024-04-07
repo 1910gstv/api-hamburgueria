@@ -24,4 +24,9 @@ const Usuario = connection.define('usuarios', {
     }
 })
 
+Usuario.associate = (models) => {
+    Usuario.hasOne(models.Endereco, {foreignKey: "endereco_id"})
+    Usuario.belongsTo(models.Pedido, {foreignKey: "usuario_id"});
+}
+
 module.exports = Usuario

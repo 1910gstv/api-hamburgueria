@@ -20,4 +20,9 @@ const Pedido = connection.define("pedidos", {
     }
 });
 
+Pedido.associate = (models) => {
+    Pedido.hasOne(models.Usuario, {foreignKey: "usuario_id"});
+    Pedido.hasOne(models.Pagamento, { foreignKey: "pagamentos_id"});
+    Pedido.belongsToMany(models.PedidoProduto, {foreignKey: "PedidoId"});
+}
 module.exports = Pedido

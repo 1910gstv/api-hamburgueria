@@ -8,4 +8,8 @@ const Pagamento = connection.define("pagamentos", {
     },
 });
 
+Pagamento.associate = (models) => {
+    Pagamento.belongsTo(models.Pedido, {foreignKey: 'pagamentos_id'});
+}
+
 module.exports = Pagamento

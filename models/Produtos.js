@@ -18,6 +18,11 @@ const Produto = connection.define('produtos', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
-})
+});
+
+Produto.associate = (models) => {
+    Produto.hasOne(models.Categoria, {foreignKey: "categorias_id"})
+    Produto.belongsToMany(models.PedidoProduto, { foreignKey: "ProdutoId"})
+}
 
 module.exports = Produto

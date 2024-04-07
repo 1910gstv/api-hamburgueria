@@ -28,10 +28,10 @@ async function createUser(req,res){
     const newUser = req.body;
 
     try {
-        const newUserCreated = await Usuario.crete(newUser);
+        const newUserCreated = await Usuario.create(newUser);
         return res.status(200).json(newUserCreated);
     } catch (error) {
-        return res.status(500).json("Internal Server Error");
+        return res.status(500).json(error.message);
     }
 }
 

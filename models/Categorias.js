@@ -8,4 +8,8 @@ const Categoria = connection.define("categorias", {
     },
 });
 
+Categoria.associate = (models) => {
+    Categoria.belongsTo(models.Produto , {foreignKey: "categorias_id"})
+}
+
 module.exports = Categoria
