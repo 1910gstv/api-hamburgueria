@@ -69,7 +69,27 @@ describe("Category Controller", () => {
 
     axios.get.mockImplementation(() => Promise.resolve(resp));
     return CategoriaController.getAllCategories(req, resp).then(() =>
-    expect(resp.data).toEqual(categoria)
+      expect(resp.data).toEqual(categoria)
     );
+  });
+
+  test("Should return error when all categories are called", async () => {
+    const categoria = { descricao: "Bebidas" };
+
+    const req = {
+      req: jest.fn(),
+    };
+
+    const resp = {
+      data: categoria,
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    Categoria.create.mockRejectedValue(new Error("Mocking exception"));
+
+    await CategoriaController.getAllCategories(req, resp);
+    expect(Categoria.get).toHaveBeenCalledTimes(1);
+    expect(resp.status).toHaveBeenCalledWith(500)
   });
 });
