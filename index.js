@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session)
 const connection = require("./database/database");
 const bodyParser = require("body-parser");
 
@@ -27,8 +28,12 @@ app.use(
   session({
     secret: "laia",
     cookie: {
-      maxAge: 30000000000,
+      maxAge: 86400000 ,
     },
+    store: new MemoryStore( {
+      checkPeriod: 86400000
+    }),
+    resave: false
   })
 );
 
@@ -41,7 +46,7 @@ connection
     console.log(err);
   });
 
-const port = process.env.PORT || 8082;
+const port = 8082;
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
