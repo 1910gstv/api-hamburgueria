@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session)
 const connection = require("./database/database");
@@ -36,15 +37,6 @@ app.use(
     resave: false
   })
 );
-
-connection
-  .authenticate()
-  .then(() => {
-    console.log("Conexão feita com o servidor");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 const port = 8082;
 

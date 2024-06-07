@@ -1,8 +1,10 @@
-const Categoria = require('../models/Categorias');
+const {PrismaClient} = require('@prisma/client')
+
+const prisma = new PrismaClient()
 
 async function getAllCategories(req,res){
     try {
-        const allCategories = await Categoria.findAll();
+        const allCategories = await prisma.categorias.findMany();
         return res.status(200).json(allCategories)
     } catch (error) {
         return res.status(500).json(error.message);
