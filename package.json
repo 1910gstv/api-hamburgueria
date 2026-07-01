@@ -18,12 +18,14 @@
     "memorystore": "^1.6.7",
     "mysql2": "^3.9.3",
     "nodemon": "^3.1.0",
-    "pg": "^8.12.0",
+    "pg": "^8.22.0",
+    "pm2": "^7.0.1",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "prisma": "^5.15.0"
+    "prisma": "^5.15.0",
+    "tsx": "^4.22.4"
   }
 }

@@ -1,95 +1,72 @@
 -- CreateTable
-CREATE TABLE `categorias` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `descricao` VARCHAR(255) NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE categorias (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NULL
+);
 
 -- CreateTable
-CREATE TABLE `enderecos` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `logradouro` VARCHAR(255) NOT NULL,
-    `bairro` VARCHAR(255) NOT NULL,
-    `cidade` VARCHAR(50) NOT NULL,
-    `estado` VARCHAR(2) NOT NULL,
-    `cep` INTEGER NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE enderecos (
+    id SERIAL PRIMARY KEY,
+    logradouro VARCHAR(255) NOT NULL,
+    bairro VARCHAR(255) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado VARCHAR(2) NOT NULL,
+    cep INTEGER NOT NULL
+);
 
 -- CreateTable
-CREATE TABLE `pagamentos` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `descricao` VARCHAR(255) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE pagamentos (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL
+);
 
 -- CreateTable
-CREATE TABLE `pedidos` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `data_pedido` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    `valor_total` DECIMAL(7, 2) NOT NULL,
-    `pagamentos_id` INTEGER NOT NULL,
-    `usuario_id` INTEGER NOT NULL,
-
-    INDEX `id_pagamentos_fk`(`pagamentos_id`),
-    INDEX `id_usuariosfk`(`usuario_id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(40) NOT NULL,
+    endereco_id INTEGER NOT NULL
+);
 
 -- CreateTable
-CREATE TABLE `pedidosprodutos` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `PedidoId` INTEGER NULL,
-    `ProdutoId` INTEGER NULL,
-
-    INDEX `PedidoId`(`PedidoId`),
-    INDEX `ProdutoId`(`ProdutoId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE pedidos (
+    id SERIAL PRIMARY KEY,
+    data_pedido TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    valor_total DECIMAL(7, 2) NOT NULL,
+    pagamentos_id INTEGER NOT NULL,
+    usuario_id INTEGER NOT NULL
+);
 
 -- CreateTable
-CREATE TABLE `produtos` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(100) NOT NULL,
-    `descricao` VARCHAR(250) NOT NULL,
-    `valor` DECIMAL(7, 2) NOT NULL,
-    `categorias_id` INTEGER NULL,
-
-    INDEX `fk_id_categoria`(`categorias_id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(250) NOT NULL,
+    valor DECIMAL(7, 2) NOT NULL,
+    categorias_id INTEGER NULL
+);
 
 -- CreateTable
-CREATE TABLE `usuarios` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(255) NOT NULL,
-    `sobrenome` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(100) NOT NULL,
-    `senha` VARCHAR(40) NOT NULL,
-    `endereco_id` INTEGER NOT NULL,
+CREATE TABLE pedidosprodutos (
+    id SERIAL PRIMARY KEY,
+    PedidoId INTEGER NULL,
+    ProdutoId INTEGER NULL
+);
 
-    INDEX `id_endereco`(`endereco_id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- AddForeignKey
-ALTER TABLE `pedidos` ADD CONSTRAINT `id_pagamentos_fk` FOREIGN KEY (`pagamentos_id`) REFERENCES `pagamentos`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
--- AddForeignKey
-ALTER TABLE `pedidos` ADD CONSTRAINT `id_usuariosfk` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+-- Índices (No Postgres, são criados separadamente)
+CREATE INDEX id_pagamentos_fk ON pedidos(pagamentos_id);
+CREATE INDEX id_usuariosfk ON pedidos(usuario_id);
+CREATE INDEX PedidoId_idx ON pedidosprodutos(PedidoId);
+CREATE INDEX ProdutoId_idx ON pedidosprodutos(ProdutoId);
+CREATE INDEX fk_id_categoria ON produtos(categorias_id);
+CREATE INDEX id_endereco ON usuarios(endereco_id);
 
 -- AddForeignKey
-ALTER TABLE `pedidosprodutos` ADD CONSTRAINT `pedidosprodutos_ibfk_1` FOREIGN KEY (`PedidoId`) REFERENCES `pedidos`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
--- AddForeignKey
-ALTER TABLE `pedidosprodutos` ADD CONSTRAINT `pedidosprodutos_ibfk_2` FOREIGN KEY (`ProdutoId`) REFERENCES `produtos`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
--- AddForeignKey
-ALTER TABLE `produtos` ADD CONSTRAINT `fk_id_categoria` FOREIGN KEY (`categorias_id`) REFERENCES `categorias`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
--- AddForeignKey
-ALTER TABLE `usuarios` ADD CONSTRAINT `id_endereco` FOREIGN KEY (`endereco_id`) REFERENCES `enderecos`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
+ALTER TABLE pedidos ADD CONSTRAINT id_pagamentos_fk FOREIGN KEY (pagamentos_id) REFERENCES pagamentos(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE pedidos ADD CONSTRAINT id_usuariosfk FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE pedidosprodutos ADD CONSTRAINT pedidosprodutos_ibfk_1 FOREIGN KEY (PedidoId) REFERENCES pedidos(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE pedidosprodutos ADD CONSTRAINT pedidosprodutos_ibfk_2 FOREIGN KEY (ProdutoId) REFERENCES produtos(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE produtos ADD CONSTRAINT fk_id_categoria FOREIGN KEY (categorias_id) REFERENCES categorias(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE usuarios ADD CONSTRAINT id_endereco FOREIGN KEY (endereco_id) REFERENCES enderecos(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
