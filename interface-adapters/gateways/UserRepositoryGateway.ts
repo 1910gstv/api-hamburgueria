@@ -1,6 +1,8 @@
-import { UserGateway } from "../../application/gateway/UserInterface";
+import { UserGateway } from "../../application/gateway/UserGateway";
+import { CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
 import { User } from "../../domain/entities/UserEntity";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
+import { CreateResponseUser } from "./CreateResponseUser";
 
 export class UserRepositoryGateway implements UserGateway {
   private userRepository: IUserRepository;
@@ -9,15 +11,15 @@ export class UserRepositoryGateway implements UserGateway {
     this.userRepository = userRepository;
   }
 
-  public async createUser(user: User): Promise<User> {
+  public async createUser(user: CreateUserDTO): Promise<ResponseUserDTO> {
     const savedData = await this.userRepository.save(user);
 
-    return new User(
+     return new CreateResponseUser(
       savedData.id,
       savedData.name,
-      savedData.lastName,
+      savedData.lastname,
       savedData.email,
-      savedData.password,
-    );
+     )
+
   }
 }

@@ -1,5 +1,6 @@
 import { User } from "../../domain/entities/UserEntity";
-import { UserGateway } from "../gateway/UserInterface";
+import { UserGateway } from "../gateway/UserGateway";
+import { CreateUserDTO, ResponseUserDTO } from "./UserDTO";
 
 export class UserUseCase {
     public userGateway : UserGateway;
@@ -8,7 +9,8 @@ export class UserUseCase {
         this.userGateway = userGateway
     }
 
-    public createUser(user: User) : Promise<User>{
+    public createUser(user: CreateUserDTO) : Promise<ResponseUserDTO>{
+        
         return this.userGateway.createUser(user);
     }
 

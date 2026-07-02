@@ -1,7 +1,7 @@
 export interface IUser {
     id: number,
     name: string,
-    lastName: string,
+    lastname: string,
     email: string,
     password: string
 }
@@ -9,16 +9,16 @@ export interface IUser {
 export class User implements IUser {
     public id: number;
     public name: string;
-    public lastName: string;
+    public lastname: string;
     public email: string;
     public password: string;
 
     constructor(
-        id: number, name: string, lastName: string, email: string, password: string
+        id: number, name: string, lastname: string, email: string, password: string
     ){
         this.id = id;
         this. name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
     }
