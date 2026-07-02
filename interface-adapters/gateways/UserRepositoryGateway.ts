@@ -1,5 +1,6 @@
 import { UserGateway } from "../../application/gateway/UserGateway";
-import { CreateResponseUser, CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
+import { UserMapper } from "../../application/mappers/UserMapper";
+import { CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 
 export class UserRepositoryGateway implements UserGateway {
@@ -12,12 +13,7 @@ export class UserRepositoryGateway implements UserGateway {
   public async createUser(user: CreateUserDTO): Promise<ResponseUserDTO> {
     const savedData = await this.userRepository.save(user);
 
-     return new CreateResponseUser(
-      savedData.id,
-      savedData.name,
-      savedData.lastname,
-      savedData.email,
-     )
+     return UserMapper.createUserResponse(savedData);
 
   }
 }

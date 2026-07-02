@@ -1,4 +1,3 @@
-import { User } from "../../domain/entities/UserEntity";
 import { UserGateway } from "../gateway/UserGateway";
 import { CreateUserDTO, ResponseUserDTO } from "./UserDTO";
 
