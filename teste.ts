@@ -20,4 +20,4 @@ async function rodarTeste() {
 }
 
 
-rodarTeste();
+// rodarTeste();
