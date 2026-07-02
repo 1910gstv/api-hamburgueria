@@ -1,8 +1,6 @@
 import { UserGateway } from "../../application/gateway/UserGateway";
-import { CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
-import { User } from "../../domain/entities/UserEntity";
+import { CreateResponseUser, CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
-import { CreateResponseUser } from "./CreateResponseUser";
 
 export class UserRepositoryGateway implements UserGateway {
   private userRepository: IUserRepository;
