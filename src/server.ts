@@ -1,12 +1,14 @@
 import express from "express";
 import session from "express-session";
 import MemoryStoreFactory from "memorystore";
-
+import * as dotenv from 'dotenv';
 
 import {userRoutes} from "./routes/UsuarioRoutes";
 
 const app = express();
 const MemoryStore = MemoryStoreFactory(session);
+
+dotenv.config();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

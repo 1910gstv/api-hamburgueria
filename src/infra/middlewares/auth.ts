@@ -1,19 +1,22 @@
 import jwt, {Secret, JwtPayload} from 'jsonwebtoken';
 import { Request, Response, NextFunction} from 'express';
 
-export const SECRET_KEY: Secret = 'key-gustavo'
 
 export interface CustomRequest extends Request {
     token: string | JwtPayload;
 }
 
 export const auth = async(req: Request, res: Response, next: NextFunction) => {
+    const secret = process.env.SECRET_KEY
     try {
-        const token = req.header('Authorization')?.replace('Bearer','');
+        const token = req.header('Authorization')?.replace('Bearer ','');
 
-        if(!token){ throw new Error()}
+        if(!token){ throw new Error('Nenhum token foi encontrado.')}
 
-        const decoded = jwt.verify(token, SECRET_KEY);
+        if(!secret){
+        throw new Error('Secret não encontrado')
+    }
+        const decoded = jwt.verify(token, secret);
         (req as CustomRequest).token = decoded;
 
         next()

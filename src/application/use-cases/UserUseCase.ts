@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import { UserGateway } from "../gateway/UserGateway";
 import { AuthenticationDTO } from "./Auth/AuthenticationDTO";
 import { CreateUserDTO, LoginUserResponseDTO, ResponseUserDTO } from "./UserDTO";
-import { SECRET_KEY } from "../../infra/middlewares/auth";
 
 export class UserUseCase {
   public userGateway: UserGateway;
@@ -17,15 +16,20 @@ export class UserUseCase {
   }
 
   public async login(data: AuthenticationDTO): Promise<LoginUserResponseDTO | string> {
+    const secret = process.env.SECRET_KEY;
     const findUser = await this.userGateway.findUserByEmail(data);
     if (!findUser) {
       return "User not found";
     }
 
+    if(!secret){
+        throw new Error('Secret não encontrado')
+    }
+
     const token = jwt.sign(
       { _id: findUser.id?.toString(), name: findUser.name },
-      SECRET_KEY,
-      { expiresIn: 120 },
+      secret,
+      { expiresIn: '24h' },
     );
 
     return {
