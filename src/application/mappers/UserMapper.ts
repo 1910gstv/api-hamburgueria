@@ -1,7 +1,7 @@
-import { User } from "../../domain/entities/UserEntity";
+import { IUser } from "../../domain/entities/UserEntity";
 
 export class UserMapper {
-    static createUserResponse(user: User) {
+    static createUserResponse(user: IUser) {
         return {
             id : user.id,
             name : user.name,

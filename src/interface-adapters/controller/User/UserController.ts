@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
+import { CreateUserDTO, LoginUserDTO } from "../../../application/use-cases/UserDTO";
 import { UserUseCase } from "../../../application/use-cases/UserUseCase";
-import { CreateUserDTO } from "../../../application/use-cases/UserDTO";
 
 export class UserController {
     constructor(private readonly userUseCase: UserUseCase){}
@@ -12,6 +12,16 @@ export class UserController {
         const data: CreateUserDTO = {name, lastname, email, password};
         
         const user = await this.userUseCase.createUser(data);
+
+        return res.status(201).json(user);
+    }
+
+    public async login(req: Request, res: Response): Promise<Response> {
+        const { email, password} = req.body;
+
+        const data: LoginUserDTO = {email, password};
+        
+        const user = await this.userUseCase.login(data);
 
         return res.status(201).json(user);
     }

@@ -3,7 +3,7 @@ import session from "express-session";
 import MemoryStoreFactory from "memorystore";
 
 
-import {userRoutes} from "../routes/UsuarioRoutes";
+import {userRoutes} from "./routes/UsuarioRoutes";
 
 const app = express();
 const MemoryStore = MemoryStoreFactory(session);
@@ -11,7 +11,7 @@ const MemoryStore = MemoryStoreFactory(session);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/", userRoutes);
+app.use("/user", userRoutes);
 
 app.use(
   session({
@@ -23,7 +23,7 @@ app.use(
       checkPeriod: 86400000,
     }),
     resave: false,
-    saveUninitialized: false, // faltava no original — sem isso o Express avisa/erra
+    saveUninitialized: false,
   })
 );
 

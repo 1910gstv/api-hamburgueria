@@ -1,6 +1,7 @@
 import { UserGateway } from "../../application/gateway/UserGateway";
 import { UserMapper } from "../../application/mappers/UserMapper";
-import { CreateUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
+import { CreateUserDTO, LoginUserDTO, ResponseUserDTO } from "../../application/use-cases/UserDTO";
+import { IUser } from "../../domain/entities/UserEntity";
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 
 export class UserRepositoryGateway implements UserGateway {
@@ -15,5 +16,13 @@ export class UserRepositoryGateway implements UserGateway {
 
      return UserMapper.createUserResponse(savedData);
 
+  }
+
+  public async findUserByEmail(data: LoginUserDTO): Promise<IUser | null>{
+      const foundedUser =  await this.userRepository.findUserByEmail(data);
+      if(foundedUser){
+        return foundedUser;
+      }
+    return null;
   }
 }

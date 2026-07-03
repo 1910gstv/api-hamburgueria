@@ -11,3 +11,14 @@ export interface ResponseUserDTO {
     lastname: string;
     email:string;
 }
+
+export interface LoginUserDTO {
+    email: string;
+    password: string;
+}
+
+export interface LoginUserResponseDTO {
+    id: number;
+    name: string;
+    token: string;
+}
