@@ -2,12 +2,15 @@ import jwt from 'jsonwebtoken';
 import { UserGateway } from "../gateway/UserGateway";
 import { AuthenticationDTO } from "./Auth/AuthenticationDTO";
 import { CreateUserDTO, LoginUserResponseDTO, ResponseUserDTO } from "./UserDTO";
+import { ILogger } from '../interfaces/Ilogger';
 
 export class UserUseCase {
   public userGateway: UserGateway;
+  public logger: ILogger
 
-  constructor(userGateway: UserGateway) {
+  constructor(userGateway: UserGateway, logger: ILogger) {
     this.userGateway = userGateway;
+    this.logger = logger;
   }
 
   public createUser(user: CreateUserDTO): Promise<ResponseUserDTO | string> {
@@ -31,6 +34,8 @@ export class UserUseCase {
       secret,
       { expiresIn: '24h' },
     );
+
+    this.logger.info('Login realizado com sucesso!')
 
     return {
         id: findUser.id,
