@@ -3,6 +3,7 @@ import { UserGateway } from "../gateway/UserGateway";
 import { AuthenticationDTO } from "./Auth/AuthenticationDTO";
 import { CreateUserDTO, LoginUserResponseDTO, ResponseUserDTO } from "./UserDTO";
 import { ILogger } from '../interfaces/Ilogger';
+import bcrypt from 'bcrypt';
 
 export class UserUseCase {
   public userGateway: UserGateway;
@@ -13,7 +14,10 @@ export class UserUseCase {
     this.logger = logger;
   }
 
-  public createUser(user: CreateUserDTO): Promise<ResponseUserDTO | string> {
+  public async createUser(user: CreateUserDTO): Promise<ResponseUserDTO | string> {
+    if(user.password){
+      user.password = await bcrypt.hash(user.password, 8);
+    }
     //criar logica de salvar senha criptografa
     return this.userGateway.createUser(user);
   }
@@ -24,10 +28,16 @@ export class UserUseCase {
     if (!findUser) {
       return "User not found";
     }
+    const comparePassword = bcrypt.compare(data.password, findUser.password);
+
+    if(!comparePassword){
+      throw new Error('Password is not correct.')
+    }
 
     if(!secret){
         throw new Error('Secret não encontrado')
     }
+
 
     const token = jwt.sign(
       { _id: findUser.id?.toString(), name: findUser.name },
