@@ -7,9 +7,9 @@ export class UserController {
 
     public async createUser(req: Request, res: Response): Promise<Response>{
 
-        const { name, lastname, email, password} = req.body;
+        const { name, lastname, email, password, role} = req.body;
 
-        const data: CreateUserDTO = {name, lastname, email, password};
+        const data: CreateUserDTO = {name, lastname, email, password, role};
         
         const user = await this.userUseCase.createUser(data);
 

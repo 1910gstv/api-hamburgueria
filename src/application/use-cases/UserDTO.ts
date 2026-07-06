@@ -1,8 +1,14 @@
+enum UserRole {
+    Admin = 'ADMIN',
+    Customer = 'CUSTOMER',
+    Employee = 'EMPLOYEE'
+}
 export interface CreateUserDTO {
     name: string;
     lastname: string;
     email:string;
     password: string;
+    role: UserRole
 }
 
 export interface ResponseUserDTO {

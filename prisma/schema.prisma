@@ -12,4 +12,11 @@ model user {
   lastname   String    @db.VarChar(255)
   email       String    @db.VarChar(100)
   password       String    @db.VarChar(255)
+  role            Role    @default(CUSTOMER)
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+  CUSTOMER
 }

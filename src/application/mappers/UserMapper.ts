@@ -7,6 +7,7 @@ export class UserMapper {
             name : user.name,
             lastname :user.lastname,
             email : user.email,
+            role: user.role
         }
     }
 }

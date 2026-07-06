@@ -16,6 +16,7 @@ export class PrismaUserRepository implements IUserRepository {
       response.lastname,
       response.email,
       response.password,
+      response.role
     );
   }
 
@@ -32,6 +33,7 @@ export class PrismaUserRepository implements IUserRepository {
         response.lastname,
         response.email,
         response.password,
+        response.role
       );
     }
 
