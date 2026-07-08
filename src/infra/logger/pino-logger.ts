@@ -1,5 +1,5 @@
 import pino from "pino";
-import { ILogger } from "../../application/interfaces/Ilogger";
+import { ILogger } from "../../application/interfaces/ILogger";
 
 const logger = pino({
   transport: {

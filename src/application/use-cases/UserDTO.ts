@@ -1,14 +1,11 @@
-enum UserRole {
-    Admin = 'ADMIN',
-    Customer = 'CUSTOMER',
-    Employee = 'EMPLOYEE'
-}
+import { Role } from "@prisma/client";
+
 export interface CreateUserDTO {
     name: string;
     lastname: string;
     email:string;
     password: string;
-    role: UserRole
+    role: Role;
 }
 
 export interface ResponseUserDTO {
@@ -16,6 +13,7 @@ export interface ResponseUserDTO {
     name: string;
     lastname: string;
     email:string;
+    role: Role;
 }
 
 export interface LoginUserDTO {
