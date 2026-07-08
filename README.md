@@ -1,0 +1,2 @@
+Cliente > Cria carrinho > Adiciona/remove/altera itens no carrinho > calcula total > confirma pedido > criar order > fecha carrinho > realiza pagamento
+Pedido = PAGO > cozinha recebe notificação/ cliente recebe notificação > cozinha atualiza status > retirado? > finaliza pedido

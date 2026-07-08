@@ -16,6 +16,7 @@ export class PrismaUserRepository implements IUserRepository {
       response.lastname,
       response.email,
       response.password,
+      response.role
     );
   }
 
@@ -23,7 +24,6 @@ export class PrismaUserRepository implements IUserRepository {
     const response = await prisma.user.findFirst({
       where: {
         email: data.email,
-        password: data.password,
       },
     });
     if (response) {
@@ -33,6 +33,7 @@ export class PrismaUserRepository implements IUserRepository {
         response.lastname,
         response.email,
         response.password,
+        response.role
       );
     }
 
