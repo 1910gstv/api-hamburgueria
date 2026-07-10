@@ -1,7 +1,7 @@
 import { Role } from "@prisma/client";
 
 export interface IUser {
-    id: number,
+    id: string,
     name: string,
     lastname: string,
     email: string,
@@ -10,7 +10,7 @@ export interface IUser {
 }
 
 export class User implements IUser {
-    public id: number;
+    public id: string;
     public name: string;
     public lastname: string;
     public email: string;
@@ -18,7 +18,7 @@ export class User implements IUser {
     public role: Role;
 
     constructor(
-        id: number, name: string, lastname: string, email: string, password: string, role: Role
+        id: string, name: string, lastname: string, email: string, password: string, role: Role
     ){
         this.id = id;
         this. name = name;
