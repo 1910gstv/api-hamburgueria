@@ -24,7 +24,9 @@ export class ProductRepositoryGateway implements ProductGateway {
   }
 
   public async findById(id: string): Promise<IProduct | null> {
-    return null;
+    const findProduct = await this.productRepository.findById(id);
+    if(!findProduct) return null;
+    return findProduct;
   }
 
   public async update(data: IProduct): Promise<IProduct | null> {

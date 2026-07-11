@@ -11,10 +11,26 @@ export class PrismaProductRepository implements IProductRepository {
       response.id,
       response.name,
       response.price.toNumber(),
-      response.description || 'Descrição padrão Produto',
+      response.description || "Descrição padrão Produto",
       response.available,
-      response.image || ''
+      response.image || "",
     );
   }
 
+  public async findById(id: string): Promise<IProduct | null> {
+    const findProduct = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    if (!findProduct) return null;
+
+    return new Product(
+      findProduct.id,
+      findProduct.name,
+      findProduct.price.toNumber(),
+      findProduct.description || "Descrição",
+      findProduct.available,
+      findProduct.image || "",
+    );
+  }
 }

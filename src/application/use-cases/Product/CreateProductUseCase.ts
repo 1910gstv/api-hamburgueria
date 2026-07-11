@@ -1,4 +1,4 @@
-import { IProduct } from '../../../domain/entities/ProductEntity';
+import { IProduct, Product } from '../../../domain/entities/ProductEntity';
 import { ProductGateway } from '../../gateway/ProductGateway';
 import { ILogger } from '../../interfaces/ILogger';
 import { Validator } from '../../validators/Validator';
@@ -17,17 +17,29 @@ export class CreateProductUseCase {
   }
 
   public async createProduct(data: CreateProductDTO): Promise<IProduct | string> {
-
+    const schema = {
+        name: "string",
+        description: "string",
+        image: "string",
+        available: "boolean",
+        price: "number",
+    }
     const missingParams: string[] = [];
-
     this.validator.missing(data.name, "name", missingParams);
     this.validator.missing(data.description, "description", missingParams);
     this.validator.missing(data.price, "price", missingParams);
     this.validator.missing(data.available, "available", missingParams);
 
+    for(const [field, expectedType] of Object.entries(schema)){
+        const value = data[field as keyof CreateProductDTO] // as keyof CreateProductDTO garante ao typescript que o field passado existe dentro CreateProductDTO
+        if(typeof value != expectedType){
+            throw new HttpError(`${field} field must be a ${expectedType}`, 400)
+        }
+    }
+
     if (missingParams.length > 0) {
         throw new HttpError(
-            `Os seguintes campos são obrigatórios: ${missingParams.join(", ")}`,
+            `Missing fields are required: ${missingParams.join(", ")}`,
             400
         );
     }
