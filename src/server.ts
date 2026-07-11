@@ -4,6 +4,7 @@ import MemoryStoreFactory from "memorystore";
 import * as dotenv from 'dotenv';
 
 import {userRoutes} from "./routes/UsuarioRoutes";
+import {productRoutes} from "./routes/ProdutosRoutes";
 
 const app = express();
 const MemoryStore = MemoryStoreFactory(session);
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use("/user", userRoutes);
+app.use("/product", productRoutes);
 
 app.use(
   session({

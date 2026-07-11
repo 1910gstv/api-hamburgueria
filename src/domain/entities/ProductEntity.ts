@@ -13,7 +13,7 @@ export class Product implements IProduct {
     public price: number;
     public description: string;
     public available: boolean;
-    public image?: string | undefined;
+    public image: string | undefined;
 
     constructor(id: string, name: string, price: number, description: string, available: boolean, image?: string){
         this.id = id;

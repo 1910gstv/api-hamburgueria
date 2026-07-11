@@ -9,7 +9,7 @@ export interface CreateUserDTO {
 }
 
 export interface ResponseUserDTO {
-    id: number;    
+    id: string;    
     name: string;
     lastname: string;
     email:string;
@@ -22,7 +22,7 @@ export interface LoginUserDTO {
 }
 
 export interface LoginUserResponseDTO {
-    id: number;
+    id: string;
     name: string;
     token: string;
 }
