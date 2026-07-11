@@ -3,12 +3,14 @@ import { ProductController } from "../../interface-adapters/controller/Product/P
 import { PrismaProductRepository } from "../repositories/prismaProductRepository";
 import { ProductRepositoryGateway } from "../../interface-adapters/gateways/ProductRepositoryGateway";
 import { CreateProductUseCase } from "../../application/use-cases/Product/CreateProductUseCase";
+import { Validator } from "../../application/validators/Validator";
 
 export function productControllerFactory(): ProductController{
     const logger = new PinoLogger();
+    const validator = new Validator();
     const productRepository = new PrismaProductRepository();
     const productRepositoryGateway = new ProductRepositoryGateway(productRepository);
-    const productUseCase = new CreateProductUseCase(productRepositoryGateway, logger);
+    const productUseCase = new CreateProductUseCase(productRepositoryGateway, logger, validator);
     const productController = new ProductController(productUseCase);
 
     return productController;
