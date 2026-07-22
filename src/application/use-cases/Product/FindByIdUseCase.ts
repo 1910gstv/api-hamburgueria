@@ -14,10 +14,10 @@ export class FindByIdUseCase {
     this.validator = validator
   }
 
-  public async findById(id: string): Promise<IProduct | null> {
+  public async findById(id: string): Promise<IProduct | Object> {
     const productFind = await this.productGateway.findById(id);
     if(!productFind){
-        return null;
+        return {message: `Product ID ${id} not found!`};
     }
 
     return productFind;
