@@ -1,5 +1,4 @@
 import { ICart } from "../../domain/entities/CartEntity";
-import { CreateCartDTO } from "../use-cases/Cart/CartDTO";
 
 export interface CartGateway {
     create(data: any): Promise<ICart | null>;

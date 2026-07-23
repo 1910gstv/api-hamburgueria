@@ -1,4 +1,3 @@
-import { ICart } from "../../../domain/entities/CartEntity";
 import { CartGateway } from "../../gateway/CartGateway";
 import { CartItemGateway } from "../../gateway/CartItemGateway";
 import { ProductGateway } from "../../gateway/ProductGateway";
